@@ -19,7 +19,7 @@
 Ohai.plugin do
   provides "kernel"
 
-  depends 'ruby'
+  depends 'languages/ruby'
 
   collect_data do
     kernel Mash.new

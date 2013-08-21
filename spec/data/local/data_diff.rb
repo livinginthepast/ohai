@@ -1,0 +1,1141 @@
+--- spec/data/local/v6_data.rb	2013-08-21 15:57:40.000000000 -0700
++++ spec/data/local/v7_data.rb	2013-08-21 16:00:01.000000000 -0700
+@@ -7,7 +7,7 @@
+         "chef_root": "/Users/clairemcquin/.rvm/gems/ruby-1.9.3-p327/gems/chef-11.6.0/lib"
+       },
+       "ohai": {
+-        "version": "6.18.0",
++        "version": "7.0.0.alpha.0",
+         "ohai_root": "/Users/clairemcquin/oc/ohai/lib/ohai"
+       }
+     }
+@@ -91,8 +91,8 @@
+           },
+           "en0": {
+             "rx": {
+-              "bytes": "12844704948",
+-              "packets": "9099045",
++              "bytes": "12849697741",
++              "packets": "9102934",
+               "errors": "0",
+               "drop": 0,
+               "overrun": 0,
+@@ -101,8 +101,8 @@
+               "multicast": 0
+             },
+             "tx": {
+-              "bytes": "380314078",
+-              "packets": "3713839",
++              "bytes": "380545053",
++              "packets": "3715772",
+               "errors": "0",
+               "drop": 0,
+               "overrun": 0,
+@@ -1273,8 +1273,8 @@
+       "/dev/disk0s2": {
+         "block_size": 512,
+         "kb_size": 244277768,
+-        "kb_used": 89621568,
+-        "kb_available": 154400200,
++        "kb_used": 89619192,
++        "kb_available": 154402576,
+         "percent_used": "37%",
+         "mount": "/",
+         "fs_type": "hfs",
+@@ -1342,1020 +1342,6 @@
+     "172.28.7.173"
+   ],
+   [
+-    "items",
+-    [
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPParallelATAData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPAudioData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPBluetoothData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPCardReaderData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPDiagnosticsData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPDiscBurningData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPEthernetData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPFibreChannelData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPFireWireData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPDisplaysData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPHardwareRAIDData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPMemoryData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPModemData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPNetworkData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPPCIData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPParallelSCSIData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPPrintersSoftwareData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPPrintersData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPSASData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPSerialATAData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPSoftwareData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPThunderboltData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPUSBData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPWWANData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "mini",
+-          "SPParallelATAData",
+-          "SPAudioData",
+-          "SPBluetoothData",
+-          "SPCardReaderData",
+-          "SPDiagnosticsData",
+-          "SPDiscBurningData",
+-          "SPEthernetData",
+-          "SPFibreChannelData",
+-          "SPFireWireData",
+-          "SPDisplaysData",
+-          "SPHardwareRAIDData",
+-          "SPMemoryData",
+-          "SPModemData",
+-          "SPNetworkData",
+-          "SPPCIData",
+-          "SPParallelSCSIData",
+-          "SPPrintersSoftwareData",
+-          "SPPrintersData",
+-          "SPSASData",
+-          "SPSerialATAData",
+-          "SPSoftwareData",
+-          "SPThunderboltData",
+-          "SPUSBData",
+-          "SPWWANData",
+-          "SPAirPortData"
+-        ],
+-        "_dataType": "SPAirPortData"
+-      },
+-      {
+-        "_SPCommandLineArguments": [
+-          "/usr/sbin/system_profiler",
+-          "-xml",
+-          "-detailLevel",
+-          "full",
+-          "SPHardwareDataType"
+-        ],
+-        "_SPCompletionInterval": 0.014384984970092773,
+-        "_dataType": "SPHardwareDataType",
+-        "_detailLevel": "-2",
+-        "_items": [
+-          {
+-            "SMC_version_system": "2.3f35",
+-            "_name": "hardware_overview",
+-            "boot_rom_version": "MBP101.00EE.B03",
+-            "cpu_type": "Intel Core i7",
+-            "current_processor_speed": "2.4 GHz",
+-            "l2_cache_core": "256 KB",
+-            "l3_cache": "6 MB",
+-            "machine_model": "MacBookPro10,1",
+-            "machine_name": "MacBook Pro",
+-            "number_processors": 4,
+-            "packages": 1,
+-            "physical_memory": "16 GB",
+-            "platform_UUID": "53E7571F-C86F-5A8F-9275-A8946B244187",
+-            "serial_number": "C02KV173FFT3"
+-          }
+-        ],
+-        "_parentDataType": "SPRootDataType",
+-        "_properties": {
+-          "LOM_revision": {
+-            "_order": "85"
+-          },
+-          "MMM_state": {
+-            "_order": "70"
+-          },
+-          "SMC_version_other": {
+-            "_order": "82"
+-          },
+-          "SMC_version_riser": {
+-            "_order": "81"
+-          },
+-          "SMC_version_system": {
+-            "_order": "80",
+-            "_suppressLocalization": "YES"
+-          },
+-          "boot_rom_release_date": {
+-            "_order": "52"
+-          },
+-          "boot_rom_vendor": {
+-            "_order": "50"
+-          },
+-          "boot_rom_version": {
+-            "_order": "51"
+-          },
+-          "bus_speed": {
+-            "_order": "45"
+-          },
+-          "cores_per_package": {
+-            "_order": "24"
+-          },
+-          "cpu_interconnect_speed": {
+-            "_order": "46"
+-          },
+-          "cpu_type": {
+-            "_order": "15"
+-          },
+-          "current_processor_speed": {
+-            "_order": "17"
+-          },
+-          "l2_cache": {
+-            "_order": "26"
+-          },
+-          "l2_cache_core": {
+-            "_order": "26"
+-          },
+-          "l2_cache_share": {
+-            "_order": "26"
+-          },
+-          "l2_cache_size": {
+-            "_order": "26"
+-          },
+-          "l3_cache": {
+-            "_order": "27"
+-          },
+-          "l3_cache_processor": {
+-            "_order": "27"
+-          },
+-          "l3_cache_size": {
+-            "_order": "27"
+-          },
+-          "machine_model": {
+-            "_order": "11"
+-          },
+-          "machine_name": {
+-            "_order": "10"
+-          },
+-          "maximum_processor_speed": {
+-            "_order": "19"
+-          },
+-          "minimum_processor_speed": {
+-            "_order": "18"
+-          },
+-          "number_cpus": {
+-            "_order": "20"
+-          },
+-          "number_processors": {
+-            "_order": "22"
+-          },
+-          "packages": {
+-            "_order": "20"
+-          },
+-          "physical_memory": {
+-            "_order": "40"
+-          },
+-          "platform_UUID": {
+-            "_detailLevel": "0",
+-            "_order": "98"
+-          },
+-          "platform_cpu_features": {
+-            "_order": "30"
+-          },
+-          "platform_cpu_htt": {
+-            "_order": "28"
+-          },
+-          "platform_cpu_vendor": {
+-            "_order": "12"
+-          },
+-          "platform_manufacturer": {
+-            "_order": "4"
+-          },
+-          "platform_product_name": {
+-            "_order": "2"
+-          },
+-          "platform_version": {
+-            "_order": "6"
+-          },
+-          "riser_serial_number": {
+-            "_detailLevel": "0",
+-            "_order": "92"
+-          },
+-          "sales_order_number": {
+-            "_detailLevel": "0",
+-            "_order": "95"
+-          },
+-          "serial_number": {
+-            "_detailLevel": "0",
+-            "_order": "90"
+-          },
+-          "volumes": {
+-            "_detailLevel": "0"
+-          }
+-        },
+-        "_timeStamp": "2013-08-21T22:57:40+00:00",
+-        "_versionInfo": {
+-          "com.apple.SystemProfiler.SPPlatformReporter": "1440"
+-        }
+-      }
+-    ]
+-  ],
+-  [
+     "kernel",
+     {
+       "name": "Darwin",
+@@ -3233,7 +2219,7 @@
+         "net.inet.tcp.minmss": "216",
+         "net.inet.tcp.minmssoverload": "0",
+         "net.inet.tcp.do_tcpdrain": "0",
+-        "net.inet.tcp.pcbcount": "27",
++        "net.inet.tcp.pcbcount": "34",
+         "net.inet.tcp.icmp_may_rst": "1",
+         "net.inet.tcp.strict_rfc1948": "0",
+         "net.inet.tcp.isn_reseed_interval": "0",
+@@ -3241,7 +2227,7 @@
+         "net.inet.tcp.rtt_min": "100",
+         "net.inet.tcp.rexmt_slop": "200",
+         "net.inet.tcp.randomize_ports": "0",
+-        "net.inet.tcp.newreno_sockets": "27",
++        "net.inet.tcp.newreno_sockets": "34",
+         "net.inet.tcp.background_sockets": "0",
+         "net.inet.tcp.win_scale_factor": "3",
+         "net.inet.tcp.tcbhashsize": "4096",
+@@ -3252,7 +2238,7 @@
+         "net.inet.tcp.timer_fastmode_idlemax": "20",
+         "net.inet.tcp.broken_peer_syn_rxmit_thres": "7",
+         "net.inet.tcp.tcp_timer_advanced": "40",
+-        "net.inet.tcp.tcp_resched_timerlist": "52627",
++        "net.inet.tcp.tcp_resched_timerlist": "52652",
+         "net.inet.tcp.pmtud_blackhole_detection": "1",
+         "net.inet.tcp.pmtud_blackhole_mss": "1200",
+         "net.inet.tcp.timer_fastquantum": "100",
+@@ -3268,7 +2254,7 @@
+         "net.inet.udp.recvspace": "196724",
+         "net.inet.udp.log_in_vain": "0",
+         "net.inet.udp.blackhole": "0",
+-        "net.inet.udp.pcbcount": "52",
++        "net.inet.udp.pcbcount": "51",
+         "net.inet.udp.randomize_ports": "1",
+         "net.inet.ipsec.def_policy": "1",
+         "net.inet.ipsec.esp_trans_deflev": "1",
+@@ -3469,7 +2455,7 @@
+   ],
+   [
+     "ohai_time",
+-    1377125859.79601
++    1377125974.85627
+   ],
+   [
+     "os",
+@@ -3850,7 +2836,7 @@
+           "full",
+           "SPHardwareDataType"
+         ],
+-        "_SPCompletionInterval": 0.014384984970092773,
++        "_SPCompletionInterval": 0.014566004276275635,
+         "_dataType": "SPHardwareDataType",
+         "_detailLevel": "-2",
+         "_items": [
+@@ -3996,7 +2982,7 @@
+             "_detailLevel": "0"
+           }
+         },
+-        "_timeStamp": "2013-08-21T22:57:40+00:00",
++        "_timeStamp": "2013-08-21T22:59:35+00:00",
+         "_versionInfo": {
+           "com.apple.SystemProfiler.SPPlatformReporter": "1440"
+         }
+@@ -4515,10 +3501,10 @@
+   ],
+   [
+     "uptime",
+-    "8 days 06 hours 24 minutes 16 seconds"
++    "8 days 06 hours 26 minutes 11 seconds"
+   ],
+   [
+     "uptime_seconds",
+-    714256
++    714371
+   ]
+ ]
