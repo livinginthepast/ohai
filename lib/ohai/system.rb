@@ -70,6 +70,21 @@ module Ohai
       end
     end
 
+    def run_plugins(safe=false)
+      @attributes.keys.each do |attr|
+        a = @attributes[attr]
+        a.keys.each do |attr_k|
+          unless attr_k == 'providers'
+            a[attr_k][:providers].each { |provider| run_plugin(provider, safe) }
+          end
+        end
+
+        unless a[:providers].nil?
+          a[:providers].each { |provider| run_plugin(provider, safe) }
+        end
+      end
+    end
+
     def all_plugins
       require_plugin('os')
 
@@ -209,6 +224,28 @@ module Ohai
       else
         raise ArgumentError, "I can only generate JSON for Hashes, Mashes, Arrays and Strings. You fed me a #{data.class}!"
       end
+    end
+
+    private
+
+    def run_plugin(plugin, safe)
+      unless plugin.has_run?
+        plugin.dependencies.each do |dependency|
+          providers = fetch_providers(dependency)
+          providers.each { |provider| run_plugin(provider, safe) unless provider == plugin }
+        end
+        safe ? plugin.safe_run : plugin.run
+      end
+    end
+
+    def fetch_providers(attribute)
+      a = @attributes
+      parts = attribute.split('/')
+      parts.each do |part|
+        next if part == Ohai::OS.collect_os
+        a = a[part]
+      end
+      a[:providers]
     end
 
   end
