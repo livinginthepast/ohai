@@ -26,6 +26,7 @@ module Ohai
     include Ohai::Mixin::FromFile
 
     def initialize(controller)
+      @controller = controller
       @attributes = controller.attributes
     end
 
@@ -42,7 +43,8 @@ module Ohai
 
       if contents.include?("Ohai.plugin")
         begin
-          plugin = self.instance_eval(contents, plugin_path, 1)
+          plugin_class = self.instance_eval(contents, plugin_path, 1)
+          plugin = plugin_class.new(@controller) unless plugin_class.nil?
         rescue SystemExit, Interrupt
           raise
         rescue NoMethodError => e
@@ -52,10 +54,12 @@ module Ohai
         end
 
         return plugin if plugin.nil?
+
         collect_provides(plugin)
       else
         Ohai::Log.warn("[DEPRECATION] Plugin at #{plugin_path} is a version 6 plugin. Version 6 plugins will not be supported in future releases of Ohai. Please upgrage your plugin to version 7 plugin syntax. For more information visit here: XXX")
-        plugin = Ohai.v6plugin do collect_contents contents end
+        plugin_class = Ohai.v6plugin do collect_contents contents end
+        plugin = plugin_class.new(@controller) unless plugin_class.nil?
         if plugin.nil?
           Ohai::Log.warn("Unable to load plugin at #{plugin_path}")
           return plugin
@@ -80,7 +84,7 @@ module Ohai
     private
 
     def collect_provides(plugin)
-      plugin_provides = plugin.provides_attrs
+      plugin_provides = plugin.class.provides_attrs
       
       plugin_provides.each do |attr|
         parts = attr.split('/')

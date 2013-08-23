@@ -41,14 +41,28 @@ module Ohai
       def initialize(controller)
         @controller = controller
         @data = controller.data
+        @has_run = false
+      end
+
+      def run
+        run_plugin
+        @has_run = true
+      end
+
+      def has_run?
+        @has_run
       end
 
       #=====================================================
       # version 7 plugin class
       #=====================================================
-      class VersionVII < Plugin
+      class VersionVII < Plugin        
         def initialize(controller)
           super(controller)
+        end
+
+        def dependencies
+          self.class.depends_attrs
         end
 
         def self.version
@@ -82,7 +96,7 @@ module Ohai
         end
 
         def self.collect_data(&block)
-          define_method(:run, &block)
+          define_method(:run_plugin, &block)
         end
       end
 
@@ -99,7 +113,7 @@ module Ohai
         end
 
         def self.collect_contents(contents)
-          define_method(:run) { self.instance_eval(contents) }
+          define_method(:run_plugin) { self.instance_eval(contents) }
         end
       end
 
