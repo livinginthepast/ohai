@@ -38,34 +38,21 @@ describe "Ohai::Loader" do
     context "should collect provides" do
       it "for a single attribute" do
         plugin = @loader.load_plugin(File.expand_path("loader/easy.rb", @plugin_path))
-        plugin.provides_attrs.should eql(["easy"])
+        @ohai.attributes.should have_key "easy"
       end
 
       it "for an array of attributes" do
         plugin = @loader.load_plugin(File.expand_path("loader/medium.rb", @plugin_path))
-        plugin.provides_attrs.sort.should eql(["medium", "medium/hard"].sort)
+        @ohai.attributes.should have_key "medium"
+        @ohai.attributes[:medium].should have_key "hard"
       end
 
       it "for all provided attributes" do
         plugin = @loader.load_plugin(File.expand_path("loader/hard.rb", @plugin_path))
-        plugin.provides_attrs.sort.should eql(["this", "plugin", "provides", "a/lot", "of", "attributes"].sort)
-      end
-    end
-
-    context "should collect depends" do
-      it "if no dependencies" do
-        plugin = @loader.load_plugin(File.expand_path("loader/easy.rb", @plugin_path))
-        plugin.depends_attrs.should eql([])
-      end
-
-      it "for a single dependency" do
-        plugin = @loader.load_plugin(File.expand_path("loader/medium.rb", @plugin_path))
-        plugin.depends_attrs.should eql(["easy"])
-      end
-
-      it "for all attributes it depends on" do
-        plugin = @loader.load_plugin(File.expand_path("loader/hard.rb", @plugin_path))
-        plugin.depends_attrs.sort.should eql(["it/also", "depends", "on/a", "lot", "of", "other/attributes"].sort)
+        %w{ this plugin provides a of attributes }.each do |attribute|
+          @ohai.attributes.should have_key attribute
+        end
+        @ohai.attributes[:a].should have_key "lot"
       end
     end
 

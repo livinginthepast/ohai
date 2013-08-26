@@ -24,7 +24,7 @@ tmp = ENV['TMPDIR'] || ENV['TMP'] || ENV['TEMP'] || '/tmp'
 shared_examples "Ohai::DSL::Plugin" do
   before(:each) do
     @ohai = ohai
-    @plugin = instance.new(@ohai)
+    @plugin = plugin
   end
 
   context "when accessing data via method_missing" do
@@ -98,27 +98,26 @@ describe "VersionVII" do
 
   before(:each) do
     @ohai = Ohai::System.new
-    loader = Ohai::Loader.new(@ohai)
-    @instance = loader.load_plugin("#{tmp}/plugins/v7plugin.rb")
+    @plugin = get_plugin("v7plugin", @ohai, "#{tmp}/plugins")
   end
 
   context "after loading" do
     it "should have version :version7" do
-      @instance.version.should eql(:version7)
+      @plugin.version.should eql(:version7)
     end
 
     it "should return which attributes it provides" do
-      @instance.provides_attrs.should eql(["version"])
+      @plugin.class.provides_attrs.should eql(["version"])
     end
 
     it "should return which attributes it depends on" do
-      @instance.depends_attrs.should eql([])
+      @plugin.class.depends_attrs.should eql([])
     end
   end
 
   it_behaves_like "Ohai::DSL::Plugin" do
     let (:ohai) { @ohai }
-    let (:instance) { @instance }
+    let (:plugin) { @plugin }
   end
 end
 
@@ -136,10 +135,8 @@ describe "VersionVI" do
 
   before(:each) do
     @ohai = Ohai::System.new
-    loader = Ohai::Loader.new(@ohai)
-
     Ohai::Log.should_receive(:warn).with(/DEPRECATION/)
-    @instance = loader.load_plugin("#{tmp}/plugins/v6plugin.rb")
+    @plugin = get_plugin("v6plugin", @ohai, "#{tmp}/plugins")
   end
 
   after(:all) do
@@ -153,7 +150,7 @@ describe "VersionVI" do
 
   context "after loading" do
     it "should have version :version6" do
-      @instance.version.should eql(:version6)
+      @plugin.version.should eql(:version6)
     end
 
     it "should not have any attributes listed" do
@@ -163,6 +160,6 @@ describe "VersionVI" do
 
   it_behaves_like "Ohai::DSL::Plugin" do
     let (:ohai) { @ohai }
-    let (:instance) { @instance }
+    let (:plugin) { @plugin }
   end
 end

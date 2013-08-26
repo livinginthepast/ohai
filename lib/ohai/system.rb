@@ -37,7 +37,7 @@ module Ohai
 
     def initialize
       @data = Mash.new
-      @attributes = Hash.new
+      @attributes = Mash.new
       @hints = Hash.new
       @v6_dependency_solver = Hash.new
       @plugin_path = ""
@@ -70,16 +70,16 @@ module Ohai
       end
     end
 
-    def run_plugins(safe=false)
+    def run_plugins(safe = false)
       @attributes.keys.each do |attr|
         a = @attributes[attr]
         a.keys.each do |attr_k|
-          unless attr_k == 'providers'
+          unless attr_k.eql?('providers')
             a[attr_k][:providers].each { |provider| run_plugin(provider, safe) }
           end
         end
 
-        unless a[:providers].nil?
+        if a[:providers]
           a[:providers].each { |provider| run_plugin(provider, safe) }
         end
       end
@@ -230,11 +230,24 @@ module Ohai
 
     def run_plugin(plugin, safe)
       unless plugin.has_run?
-        plugin.dependencies.each do |dependency|
-          providers = fetch_providers(dependency)
-          providers.each { |provider| run_plugin(provider, safe) unless provider == plugin }
+        if plugin.resolution_status == :tmpresolved
+          Ohai::Log.error("Dependency cycle detected, terminating")
+          return
+        elsif plugin.resolution_status == :unresolved
+          plugin.resolution_status = :tmpresolved
+          plugin.dependencies.each do |dependency|
+            providers = fetch_providers(dependency)
+            providers.each do |provider|
+              if provider == plugin
+                Ohai::Log.warn("Attribute \'#{dependency}\' is depended on by its providing plugin")
+              else
+                run_plugin(provider, safe)
+              end
+            end
+          end
+          plugin.resolution_status = :resolved
+          safe ? plugin.safe_run : plugin.run
         end
-        safe ? plugin.safe_run : plugin.run
       end
     end
 
@@ -243,7 +256,12 @@ module Ohai
       parts = attribute.split('/')
       parts.each do |part|
         next if part == Ohai::OS.collect_os
-        a = a[part]
+        if a.has_key?(part)
+          a = a[part]
+        else
+          Ohai::Log.error("Cannot find plugin providing \'#{attribute}\'")
+          return [] # @todo: <- not that
+        end
       end
       a[:providers]
     end

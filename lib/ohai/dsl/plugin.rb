@@ -37,11 +37,13 @@ module Ohai
       include Ohai::Mixin::SecondsToHuman
 
       attr_reader :data
+      attr_accessor :resolution_status
 
       def initialize(controller)
         @controller = controller
         @data = controller.data
         @has_run = false
+        @resolution_status = :unresolved
       end
 
       def run
@@ -65,7 +67,7 @@ module Ohai
           self.class.depends_attrs
         end
 
-        def self.version
+        def version
           :version7
         end
 
@@ -108,7 +110,7 @@ module Ohai
           super(controller)
         end
 
-        def self.version
+        def version
           :version6
         end
 
