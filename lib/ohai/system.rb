@@ -234,13 +234,11 @@ module Ohai
     private
 
     def run_providers(providers, safe)
-      providers.each do |provider|
-        begin
-          run_plugin(provider, safe)
-        rescue DependencyCycleError, NoAttributeError => e
-          Ohai::Log.error("Encountered error when running plugins: #{e.inspect}")
-          raise
-        end
+      begin
+        providers.each { |provider| run_plugin(provider, safe) }
+      rescue DependencyCycleError, NoAttributeError => e
+        Ohai::Log.error("Encountered error when running plugins: #{e.inspect}")
+        raise
       end
     end
 
@@ -256,12 +254,10 @@ module Ohai
         end
 
         providers = []
-        p.dependencies.each do |dependency|
-          begin
-            providers << fetch_providers(dependency)
-          rescue NoAttributeError
-            raise
-          end
+        begin
+          p.dependencies.each { |dependency| providers << fetch_providers(dependency) }
+        rescue NoAttributeError
+          raise
         end
         providers = providers.flatten.uniq
         providers.delete_if { |provider| provider.has_run? || provider.eql?(p) }
@@ -283,11 +279,8 @@ module Ohai
       parts.each do |part|
         next if part == Ohai::OS.collect_os
 
-        if a.has_key?(part)
-          a = a[part]
-        else
-          raise NoAttributeError, "Cannot find plugin providing attribute \'#{attribute}\'"
-        end
+        raise NoAttributeError, "Cannot find plugin providing attribute \'#{attribute}\'" unless a[part]
+        a = a[part]
       end
 
       a[:providers]
