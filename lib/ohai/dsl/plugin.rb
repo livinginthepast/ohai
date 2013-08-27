@@ -37,18 +37,16 @@ module Ohai
       include Ohai::Mixin::SecondsToHuman
 
       attr_reader :data
-      attr_accessor :resolution_status
 
       def initialize(controller)
         @controller = controller
         @data = controller.data
         @has_run = false
-        @resolution_status = :unresolved
       end
 
       def run
-        run_plugin
         @has_run = true
+        run_plugin
       end
 
       def has_run?

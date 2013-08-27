@@ -22,7 +22,6 @@ Ohai.plugin do
   provides "network", "counters/network"
   provides "ipaddress", "ip6address", "macaddress"
 
-  depends "hostname"
   depends_os "network"
 
   FAMILIES = {

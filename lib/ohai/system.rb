@@ -70,15 +70,19 @@ module Ohai
       end
     end
 
+    # @note: assumes only two levels of attribute definition in
+    # provides and depends
     def run_plugins(safe = false)
       @attributes.keys.each do |attr|
         a = @attributes[attr]
         a.keys.each do |attr_k|
+          # run second-level attributes
           unless attr_k.eql?('providers')
             a[attr_k][:providers].each { |provider| run_plugin(provider, safe) }
           end
         end
 
+        # run first-level attributes
         if a[:providers]
           a[:providers].each { |provider| run_plugin(provider, safe) }
         end
@@ -229,24 +233,30 @@ module Ohai
     private
 
     def run_plugin(plugin, safe)
-      unless plugin.has_run?
-        if plugin.resolution_status == :tmpresolved
+      return if plugin.has_run?
+      
+      visited = [plugin]
+      while !visited.empty?
+        p = visited.pop
+
+        if visited.include?(p)
           Ohai::Log.error("Dependency cycle detected, terminating")
           return
-        elsif plugin.resolution_status == :unresolved
-          plugin.resolution_status = :tmpresolved
-          plugin.dependencies.each do |dependency|
-            providers = fetch_providers(dependency)
-            providers.each do |provider|
-              if provider == plugin
-                Ohai::Log.warn("Attribute \'#{dependency}\' is depended on by its providing plugin")
-              else
-                run_plugin(provider, safe)
-              end
-            end
-          end
-          plugin.resolution_status = :resolved
-          safe ? plugin.safe_run : plugin.run
+        end
+
+        providers = []
+        p.dependencies.each do |dependency|
+          providers << fetch_providers(dependency)
+        end
+        providers = providers.flatten.uniq
+        providers.delete_if { |provider| provider.has_run? || provider.eql?(p) }
+        
+        if providers.empty?
+          safe ? p.safe_run : p.run
+        else
+          visited << p
+          visited << providers
+          visited.flatten!
         end
       end
     end
@@ -260,7 +270,7 @@ module Ohai
           a = a[part]
         else
           Ohai::Log.error("Cannot find plugin providing \'#{attribute}\'")
-          return [] # @todo: <- not that
+          return [] # @todo: <- not this
         end
       end
       a[:providers]

@@ -100,14 +100,9 @@ EOF
           @ohai.run_plugins
         end
 
-        it "should set has_run? to true" do
+        it "should set has_run? to ____" do
           @ohai.run_plugins
           @plugin.has_run?.should be_true
-        end
-
-        it "should set dependency resolution status to :resolved" do
-          @ohai.run_plugins
-          @plugin.resolution_status.should eql(:resolved)
         end
 
         it "should not set data" do
@@ -147,11 +142,6 @@ EOF
           @plugin.has_run?.should be_true
         end
 
-        it "should set dependency resolution status to :resolved" do
-          @ohai.run_plugins(true)
-          @plugin.resolution_status.should eql(:resolved)
-        end
-
         it "should set collected data for the attribute" do
           @ohai.run_plugins
           @ohai.data.should have_key("attr")
@@ -187,11 +177,6 @@ EOF
         it "should not set has_run? to true" do
           @ohai.run_plugins
           @plugin.has_run?.should be_false
-        end
-
-        it "should have :unresolved as its dependency resolution status" do
-          @ohai.run_plugins
-          @plugin.resolution_status.should eql(:unresolved)
         end
 
         it "should not add data" do
@@ -233,11 +218,6 @@ EOF
           @ohai.run_plugins
           @plugin.has_run?.should be_false
         end
-
-        it "should set its dependency resolution status to :tmpresolved" do
-          @ohai.run_plugins
-          @plugin.resolution_status.should eql(:tmpresolved)
-        end
       end
 
       context "which depends on itself" do
@@ -271,11 +251,6 @@ EOF
         it "should be run once" do
           @ohai.should_receive(:run_plugin).with(@plugin, true)
           @ohai.run_plugins(true)
-        end
-
-        it "should set its dependency resolution status to :resolved" do
-          @ohai.run_plugins(true)
-          @plugin.resolution_status.should eql(:resolved)
         end
 
         it "should have has_run? set to true" do
@@ -379,4 +354,3 @@ EOF
   end
     
 end
-
