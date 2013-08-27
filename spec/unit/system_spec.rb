@@ -46,10 +46,6 @@ describe "Ohai::System" do
   end
 
   describe "#initialize" do
-    before(:each) do
-      @ohai = Ohai::System.new
-    end
-
     it "should return an Ohai::System object" do
       @ohai.should be_a_kind_of(Ohai::System)
     end
@@ -64,7 +60,41 @@ describe "Ohai::System" do
   end
 
   describe "#load_plugins" do
-    # some stuff
+    before(:all) do
+      Dir.should_receive(:[]).with("#{tmp}/plugins/*")
+      Dir.should_receive(:[]).with("#{tmp}/plugins/#{Ohai::OS.collect_os}/**/*").and_return([])
+    end
+
+    before(:each) do
+      f = File.open("#{tmp}/plugins/plgn.rb", "w+")
+      f.write("Ohai.plugin do\nend\n")
+      f.close
+    end
+
+    after(:each) do
+      File.delete("#{tmp}/plugins/plgn.rb")
+    end
+
+    it "should load plugins when plugin_path has a trailing slash" do
+      Ohai::Config[:plugin_path] = ["#{tmp}/plugins/"]
+      File.stub(:expand_path).with("#{tmp}/plugins/").and_return("#{tmp}/plugins")
+      @ohai.load_plugins
+    end
+
+    it "should log debug message for already loaded plugin" do
+      Ohai::Config[:plugin_path] = ["#{tmp}/plugins",
+                                    "#{tmp}/plugins"]
+      File.stub(:expand_path).with("#{tmp}/plugins").and_return("#{tmp}/plugins")
+      Ohai::Log.should_receive(:debug).with(/Already loaded plugin at/).once
+      @ohai.load_plugins
+    end
+
+    it "should add loaded plugins to @v6_dependency_solver" do
+      Ohai::Config[:plugin_path] = ["#{tmp}/plugins"]
+      File.stub(:expand_path).with("#{tmp}/plugins").and_return("#{tmp}/plugins")
+      @ohai.load_plugins
+      @ohai.v6_dependency_solver.should have_key("#{tmp}/plugins/plgn.rb")
+    end
   end
 
   describe "#run_plugins" do
