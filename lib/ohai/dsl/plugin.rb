@@ -95,6 +95,8 @@ module Ohai
           end
         end
 
+        # @todo: should log a warning if there is no collect_data
+        # block in the plugin. indicates error/improper use.
         def self.collect_data(&block)
           define_method(:run_plugin, &block)
         end

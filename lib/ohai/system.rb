@@ -29,6 +29,13 @@ require 'mixlib/shellout'
 require 'yajl'
 
 module Ohai
+  
+  class NoAttributeError < Exception
+  end
+
+  class DependencyCycleError < Exception
+  end
+
   class System
     attr_accessor :data
     attr_reader :attributes
@@ -73,22 +80,16 @@ module Ohai
     # @note: assumes only two levels of attribute definition in
     # provides and depends
     def run_plugins(safe = false)
-      @attributes.keys.each do |attr|
-        a = @attributes[attr]
-        a.keys.each do |attr_k|
-          # run second-level attributes
-          unless attr_k.eql?('providers')
-            a[attr_k][:providers].each { |provider| run_plugin(provider, safe) }
-          end
+      @attributes.keys.each do |attribute|
+        attrs = @attributes[attribute]
+        attrs.keys.each do |attr|
+          run_providers(attrs[attr][:providers], safe) unless attr.eql?('providers')
         end
 
-        # run first-level attributes
-        if a[:providers]
-          a[:providers].each { |provider| run_plugin(provider, safe) }
-        end
+        run_providers(attrs[:providers], safe) if attrs[:providers]
       end
     end
-
+    
     def all_plugins
       require_plugin('os')
 
@@ -136,7 +137,7 @@ module Ohai
       if parts.length == 0
         h = @metadata
       else
-        parts.shift if parts[0].length == 0
+        parts.shift if parts[0].length == 0 
         h = @metadata
         parts.each do |part|
           break unless h.has_key?(part)
@@ -232,6 +233,17 @@ module Ohai
 
     private
 
+    def run_providers(providers, safe)
+      providers.each do |provider|
+        begin
+          run_plugin(provider, safe)
+        rescue DependencyCycleError, NoAttributeError => e
+          Ohai::Log.error("Encountered error when running plugins: #{e.inspect}")
+          raise
+        end
+      end
+    end
+
     def run_plugin(plugin, safe)
       return if plugin.has_run?
       
@@ -240,13 +252,16 @@ module Ohai
         p = visited.pop
 
         if visited.include?(p)
-          Ohai::Log.error("Dependency cycle detected, terminating")
-          return
+          raise DependencyCycleError, "Dependency cycle detected. This must be resolved before the run can continue."
         end
 
         providers = []
         p.dependencies.each do |dependency|
-          providers << fetch_providers(dependency)
+          begin
+            providers << fetch_providers(dependency)
+          rescue NoAttributeError
+            raise
+          end
         end
         providers = providers.flatten.uniq
         providers.delete_if { |provider| provider.has_run? || provider.eql?(p) }
@@ -263,16 +278,18 @@ module Ohai
 
     def fetch_providers(attribute)
       a = @attributes
+
       parts = attribute.split('/')
       parts.each do |part|
         next if part == Ohai::OS.collect_os
+
         if a.has_key?(part)
           a = a[part]
         else
-          Ohai::Log.error("Cannot find plugin providing \'#{attribute}\'")
-          return [] # @todo: <- not this
+          raise NoAttributeError, "Cannot find plugin providing attribute \'#{attribute}\'"
         end
       end
+
       a[:providers]
     end
 
