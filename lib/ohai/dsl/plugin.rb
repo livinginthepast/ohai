@@ -37,10 +37,12 @@ module Ohai
       include Ohai::Mixin::SecondsToHuman
 
       attr_reader :data
+      attr_reader :source
 
-      def initialize(controller)
+      def initialize(controller, source)
         @controller = controller
         @data = controller.data
+        @source = source
         @has_run = false
       end
 
@@ -57,8 +59,8 @@ module Ohai
       # version 7 plugin class
       #=====================================================
       class VersionVII < Plugin        
-        def initialize(controller)
-          super(controller)
+        def initialize(controller, source)
+          super(controller, source)
         end
 
         def dependencies
@@ -106,8 +108,8 @@ module Ohai
       # version 6 plugin class
       #=====================================================
       class VersionVI < Plugin
-        def initialize(controller)
-          super(controller)
+        def initialize(controller, source)
+          super(controller, source)
         end
 
         def version

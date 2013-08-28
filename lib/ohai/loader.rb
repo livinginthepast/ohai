@@ -44,7 +44,7 @@ module Ohai
       if contents.include?("Ohai.plugin")
         begin
           plugin_class = self.instance_eval(contents, plugin_path, 1)
-          plugin = plugin_class.new(@controller) unless plugin_class.nil?
+          plugin = plugin_class.new(@controller, plugin_path) unless plugin_class.nil?
         rescue SystemExit, Interrupt
           raise
         rescue NoMethodError => e
@@ -58,12 +58,8 @@ module Ohai
         collect_provides(plugin)
       else
         Ohai::Log.warn("[DEPRECATION] Plugin at #{plugin_path} is a version 6 plugin. Version 6 plugins will not be supported in future releases of Ohai. Please upgrage your plugin to version 7 plugin syntax. For more information visit here: XXX")
-        plugin_class = Ohai.v6plugin do collect_contents contents end
-        plugin = plugin_class.new(@controller) unless plugin_class.nil?
-        if plugin.nil?
-          Ohai::Log.warn("Unable to load plugin at #{plugin_path}")
-          return plugin
-        end
+        plugin_class = Ohai.v6plugin { collect_contents(contents) }
+        plugin = plugin_class.new(@controller, plugin_path)
       end
 
       plugin

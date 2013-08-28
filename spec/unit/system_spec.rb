@@ -318,17 +318,21 @@ EOF
         Ohai::Log.should_receive(:error).with(/DependencyCycleError/)
         expect { @ohai.run_plugins }.to raise_error(Ohai::DependencyCycleError)
       end
+
+      it "should print cycle to debug log" do
+        Ohai::Log.should_receive(:debug).with("Dependency cycle detected: #{tmp}/plugins/str0.rb, #{tmp}/plugins/str1.rb, #{tmp}/plugins/str0.rb")
+        expect { @ohai.run_plugins }.to raise_error(Ohai::DependencyCycleError)
+      end
     end
 
-    describe "a dependency cycle of length 3" do
+    describe "a dependency cycle of length 2 with 3 plugins" do
         before(:each) do
           str0 = <<EOF
 Ohai.plugin do
   provides 'attr1'
-  depends 'attr2'
 
   collect_data do
-    attr1 attr2
+    attr1 "works"
   end
 end
 EOF
@@ -345,10 +349,10 @@ EOF
           str2 = <<EOF
 Ohai.plugin do
   provides 'attr3'
-  depends 'attr1'
+  depends 'attr2'
 
   collect_data do
-    attr3 attr1
+    attr3 attr2
   end
 end
 EOF
@@ -372,6 +376,11 @@ EOF
 
       it "should log an error" do
         Ohai::Log.should_receive(:error).with(/DependencyCycleError/)
+        expect { @ohai.run_plugins }.to raise_error(Ohai::DependencyCycleError)
+      end
+
+      it "should print cycle to debug log" do
+        Ohai::Log.should_receive(:debug).with("Dependency cycle detected: #{tmp}/plugins/str1.rb, #{tmp}/plugins/str2.rb, #{tmp}/plugins/str1.rb")
         expect { @ohai.run_plugins }.to raise_error(Ohai::DependencyCycleError)
       end
     end

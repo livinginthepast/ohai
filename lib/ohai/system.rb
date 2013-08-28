@@ -250,7 +250,13 @@ module Ohai
         p = visited.pop
 
         if visited.include?(p)
-          raise DependencyCycleError, "Dependency cycle detected. This must be resolved before the run can continue."
+          visited.drop_while { |plugin| !plugin.eql?(p) }
+          cycle_str = ""
+          visited.each { |plugin| cycle_str << "#{plugin.source}, " }
+          cycle_str << p.source
+
+          Ohai::Log.debug("Dependency cycle detected: #{cycle_str}")
+          raise DependencyCycleError, "Dependency cycle detected. This must be resolved before the run can continue. Check the debug log for more information."
         end
 
         providers = []
@@ -284,6 +290,17 @@ module Ohai
       end
 
       a[:providers]
+    end
+
+    def compute_cycle(cycle)
+      filenames = []
+      @v6_dependency_solver.each { |file| filenames << file if cycle.include?(file) }
+
+      ordered_files = Array.new(cycle.size + 1)
+      filenames.each { |file| ordered_files.insert(cycle.index_of(@v6_dependency_solver[file]), @v6_dependency_solver[file]) }
+      
+
+      ordered_files
     end
 
   end
