@@ -255,8 +255,8 @@ module Ohai
           visited.each { |plugin| cycle_str << "#{plugin.source}, " }
           cycle_str << p.source
 
-          Ohai::Log.debug("Dependency cycle detected: #{cycle_str}")
-          raise DependencyCycleError, "Dependency cycle detected. This must be resolved before the run can continue. Check the debug log for more information."
+          Ohai::Log.debug("Dependency cycle detected:")
+          raise DependencyCycleError, "Dependency cycle detected. This must be resolved before the run can continue. Cycle: #{cycle_str}."
         end
 
         providers = []
