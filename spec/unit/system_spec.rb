@@ -320,7 +320,11 @@ EOF
       end
 
       it "should print cycle to debug log" do
-        Ohai::Log.should_receive(:debug).with("Dependency cycle detected: #{tmp}/plugins/str0.rb, #{tmp}/plugins/str1.rb, #{tmp}/plugins/str0.rb")
+        Ohai::Log.should_receive(:debug) do |string|
+          string.should include("Dependency cycle detected")
+          string.should include("#{tmp}/plugins/str0.rb")
+          string.should include("#{tmp}/plugins/str1.rb")
+        end
         expect { @ohai.run_plugins }.to raise_error(Ohai::DependencyCycleError)
       end
     end
@@ -380,7 +384,11 @@ EOF
       end
 
       it "should print cycle to debug log" do
-        Ohai::Log.should_receive(:debug).with("Dependency cycle detected: #{tmp}/plugins/str1.rb, #{tmp}/plugins/str2.rb, #{tmp}/plugins/str1.rb")
+        Ohai::Log.should_receive(:debug) do |string|
+          string.should include("Dependency cycle detected")
+          string.should include("#{tmp}/plugins/str1.rb")
+          string.should include("#{tmp}/plugins/str2.rb")
+        end
         expect { @ohai.run_plugins }.to raise_error(Ohai::DependencyCycleError)
       end
     end
